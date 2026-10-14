@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f5f0" />
+    <meta name="description" content="A calmer study planner for priorities, focus, and real breaks." />
+    <title>Study Steady — Make room for what matters</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-frame">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Study Steady home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M8 12.2c4.4-.9 8.5.1 12 3v16c-3.5-2.9-7.6-3.9-12-3V12.2Z" fill="currentColor" opacity=".96" />
+              <path d="M32 12.2c-4.4-.9-8.5.1-12 3v16c3.5-2.9 7.6-3.9 12-3V12.2Z" fill="currentColor" opacity=".7" />
+              <path d="M20 15.3v15.9" stroke="#315d51" stroke-width="1.6" stroke-linecap="round" />
+              <circle cx="20" cy="8" r="3.2" fill="#d8e7a2" />
+            </svg>
+          </span>
+          <span class="brand-copy"><strong>study steady</strong><small>your study companion</small></span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-link is-active" type="button" data-view="today" aria-current="page">Today</button>
+          <button class="nav-link" type="button" data-view="assignments">Assignments</button>
+          <button class="nav-link" type="button" data-view="review">Daily review</button>
+        </nav>
+
+        <div class="topbar-right">
+          <span class="save-status"><span class="status-dot"></span> Saved on this device</span>
+          <span class="avatar" aria-hidden="true">S</span>
+        </div>
+      </header>
+
+      <main id="app" class="page-content"></main>
+
+      <footer class="page-footer">
+        <span>Small steps count.</span>
+        <span>Your plan is saved privately on this device.</span>
+      </footer>
+    </div>
+
+    <dialog id="task-dialog" class="dialog-card">
+      <form id="task-form" method="dialog">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">A little at a time</span>
+            <h2>Add an assignment</h2>
+          </div>
+          <button class="icon-button" type="button" data-close="task-dialog" aria-label="Close">×</button>
+        </div>
+        <label class="field-label" for="task-title">What do you need to work on?</label>
+        <input id="task-title" name="title" type="text" maxlength="100" placeholder="e.g. Outline my biology lab report" required />
+        <label class="field-label" for="task-next-step">What’s one small first step? <span class="optional">optional</span></label>
+        <input id="task-next-step" name="nextStep" type="text" maxlength="100" placeholder="e.g. Find three sources" />
+        <div class="field-grid">
+          <label>
+            <span class="field-label">Course <span class="optional">optional</span></span>
+            <input name="course" type="text" maxlength="32" placeholder="e.g. Biology" />
+          </label>
+          <label>
+            <span class="field-label">Due date <span class="optional">optional</span></span>
+            <input name="dueDate" type="date" />
+          </label>
+        </div>
+        <div class="field-grid field-grid-bottom">
+          <label>
+            <span class="field-label">Time needed</span>
+            <select name="minutes">
+              <option value="15">About 15 minutes</option>
+              <option value="25" selected>About 25 minutes</option>
+              <option value="45">About 45 minutes</option>
+              <option value="60">About an hour</option>
+              <option value="90">More than an hour</option>
+            </select>
+          </label>
+          <label class="priority-option">
+            <input name="priority" type="checkbox" />
+            <span><strong>Make this a priority</strong><small>Choose up to three for today</small></span>
+          </label>
+        </div>
+        <div class="dialog-actions">
+          <button class="button button-quiet" type="button" data-close="task-dialog">Cancel</button>
+          <button class="button button-primary" type="submit">Add assignment <span aria-hidden="true">↗</span></button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="timer-dialog" class="dialog-card timer-dialog">
+      <div class="timer-topline">
+        <span class="eyebrow" id="timer-eyebrow">A little focus time</span>
+        <button class="icon-button" type="button" data-close="timer-dialog" aria-label="Close">×</button>
+      </div>
+      <div class="timer-switch" role="group" aria-label="Timer type">
+        <button type="button" class="timer-mode is-selected" data-timer-mode="focus">Focus</button>
+        <button type="button" class="timer-mode" data-timer-mode="break">Break</button>
+      </div>
+      <div class="timer-face" id="timer-display" aria-live="off">25:00</div>
+      <p class="timer-task" id="timer-task">One thing at a time.</p>
+      <p class="timer-message" id="timer-message">Settle in. You can pause whenever you need.</p>
+      <div class="timer-controls">
+        <button type="button" id="timer-reset" class="button button-quiet">Start over</button>
+        <button type="button" id="timer-toggle" class="button button-primary">Start focus</button>
+      </div>
+      <div class="timer-duration-note"><span class="tiny-sun">✳</span> 25 minutes of focus · 5 minutes to reset</div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
